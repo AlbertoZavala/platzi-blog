@@ -25,7 +25,7 @@ class Usuarios extends Component {
     ))
   );
 
-  render() {          
+  render() {              
     return (
       <div>
         <table className="tabla">
