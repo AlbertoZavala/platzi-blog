@@ -1,0 +1,2 @@
+# platzi-blog
+Platzi - Blog
