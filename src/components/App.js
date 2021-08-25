@@ -1,18 +1,39 @@
 import React, { Component } from "react";
 
 class App extends Component {
-  ponerFilas = () => [
-    <tr>
-      <td>José</td>
-      <td>jose.alberto.zavala.flores@gmail.com</td>
-      <td>www.zavala.com.mx</td>
-    </tr>,
-    <tr>
-      <td>Alberto</td>
-      <td>jose.alberto.zavala.flores@gmail.com</td>
-      <td>www.zavala.com.mx</td>
-    </tr>,
-  ];
+  constructor(){
+    super();
+    this.state = {
+      usuarios: [
+        {
+          nombre: "José",
+          correo: "jose.alberto.zavala.flores@gmail.com",
+          enlace: "www.zavala.com.mx",
+        },
+        {
+          nombre: "Alberto",
+          correo: "jose.alberto.zavala.flores@gmail.com",
+          enlace: "www.zavala.com.mx",
+        }
+      ]
+    }
+  }
+
+  ponerFilas = () => (
+    this.state.usuarios.map(usuario => (
+      <tr>
+        <td>
+          { usuario.nombre }
+        </td>
+        <td>
+          { usuario.correo }
+        </td>
+        <td>
+          { usuario.enlace }
+        </td>
+      </tr>
+    ))
+  );
 
   render() {
     return (
