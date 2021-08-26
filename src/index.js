@@ -9,6 +9,7 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 
 import './css/index.css';
+import './css/iconos.css'
 
 const store = createStore(
   reducers, // Agregr todos los Reducers
