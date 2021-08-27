@@ -76,7 +76,14 @@ class Publicaciones extends Component {
 
     const { publicaciones_key } = usuarios[key];
 
-    return publicaciones[publicaciones_key].map((publicacion) => {
+    return this.mostrarInfo(
+      publicaciones[publicaciones_key],
+      publicaciones_key,
+    );
+  }
+
+  mostrarInfo = (publicaciones, pub_key) => (
+    publicaciones.map((publicacion) => {
       return (
         <div 
         className="pub_titulo"
@@ -91,7 +98,7 @@ class Publicaciones extends Component {
           </h3>
         </div>
       )})
-  }
+  );
 
   render() {
     console.log(this.props);    
