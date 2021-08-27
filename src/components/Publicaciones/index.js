@@ -12,31 +12,55 @@ const { traerPorUsuario: publicacionesTraerPorUsuario } = publicacionesActions;
 
 class Publicaciones extends Component {
   async componentDidMount(){
+    const {
+      usuariosTraerTodos,
+      publicacionesTraerPorUsuario,
+      match: { params: { key } }
+    } = this.props;
+
     if(!this.props.usuariosReducer.usuarios.length){
-      await this.props.usuariosTraerTodos();
+      await usuariosTraerTodos();
     }
 
-    this.props.publicacionesTraerPorUsuario(this.props.match.params.key);
-  }
-
-  ponerContenido = () => {
-    if(this.props.cargando){
-      return <Spinner/>      
-    }    
-    if(this.props.error){
-      return <Fatal mensaje={this.props.error} />;
+    if(this.props.usuariosReducer.error){
+      return;
     }
     
-    return <Tabla />            
+    if(!('publicaciones_key' in this.props.usuariosReducer.usuarios[key])){    
+      publicacionesTraerPorUsuario(key);    
+    }        
+  }
+
+  ponerUsuario = () => {
+    const { 
+      usuariosReducer,
+      match: { params: { key } }
+    } = this.props;
+
+    if(usuariosReducer.error){
+      return <Fatal mensaje={usuariosReducer.error}  />
+    }
+
+    if(!usuariosReducer.usuarios.length || usuariosReducer.cargando){
+      return <Spinner/>     
+    }
+
+    const nombre = usuariosReducer.usuarios[key].name;
+
+    return (
+      <>
+        <h1>Publicaciones de {nombre} </h1>
+        <Tabla />            
+      </>
+    )
   }
 
   render() {
     console.log(this.props);    
     return (
-      <div>
-        <h1>Publicaciones de </h1>
+      <div>        
         {/* { this.props.match.params.key } */}
-        {this.ponerContenido()}
+        {this.ponerUsuario()}
       </div>
     )
   }
