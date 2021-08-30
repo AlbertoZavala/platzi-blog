@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as tareasActinos from './../../actions/tareasActions';
+import * as tareasActions from './../../actions/tareasActions';
 import Spinner from './../General/Spinner';
 import Fatal from './../General/Fatal';
+import { Link } from 'react-router-dom';
 
 class Tareas extends Component {
   componentDidMount(){
-    this.props.traerTodas();
+    if(!Object.keys(this.props.tareas).length){
+      this.props.traerTodas();
+    }
   }
 
   mostrarContenido = () => {
@@ -51,6 +54,11 @@ class Tareas extends Component {
   render() {    
     return (
       <div>            
+        <button>
+          <Link to="/tareas/guardar">
+            Agregar
+          </Link>
+        </button>
         { this.mostrarContenido() }        
       </div>
     )
@@ -59,4 +67,4 @@ class Tareas extends Component {
 
 const mapStateToProps = ({tareasReducer}) => tareasReducer;
 
-export default connect(mapStateToProps, tareasActinos) (Tareas);
+export default connect(mapStateToProps, tareasActions) (Tareas);
